@@ -1,6 +1,7 @@
 // Import packages
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom'
+import jwtDecode from 'jwt-decode'
 
 // Resources and custom components
 import './App.css';
@@ -38,7 +39,22 @@ const App = props => {
     let token = existingToken || localStorage.getItem('userToken')
     console.log('The token is:', token)
 
-    //decode token
+    // Decode token
+    if(token) {
+      let decoded = jwtDecode(token)
+
+      // If the token is not decodable or is expired, NO USER
+      if(!decoded || Date.now > decoded.exp * 1000) {
+        console.log('Expired or bad token')
+        setUser(null)
+      } else {
+        // if token is good, set user to the decoded data from the token
+        setUser(decoded)
+      }
+    }
+    else {
+      setUser(null)
+    }
 
   }
 

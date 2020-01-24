@@ -7,20 +7,20 @@ const Profile = props => {
 
   const callServer = () => {
     let token = localStorage.getItem('userToken')
-    console.log('token is', token)
+   
     fetch(`${process.env.REACT_APP_SERVER_URL}/auth/profile`, {
       headers: {
         "Authorization": `Bearer ${token}`
       }
     })
     .then(response => {
-      console.log('In the .then() code', response)
+    
       response.json().then(result => {
         if (response.ok) {
-          console.log('Yay', result)
+         
           setServerMessage(result.message)
         } else {
-          console.log('Darn', result)
+    
           setServerMessage('No secret message')
         }
       })

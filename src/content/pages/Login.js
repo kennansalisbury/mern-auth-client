@@ -28,7 +28,7 @@ const Login = props => {
       }
     })
     .then(response => {
-      console.log('Success')
+      
       response.json()
       .then(result => {
         console.log('Response', response) // meta data/status text
